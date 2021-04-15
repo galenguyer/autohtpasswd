@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <strings.h>
+#include <string.h>
 #include <shadow.h>
 #include <unistd.h>
 
@@ -9,10 +9,13 @@ int main() {
         puts("Must be run as root.");
         exit(1);
     }
+    
     setspent();
     struct spwd* curr = getspent();
     while (curr != NULL) {
-        printf("%s\n", curr->sp_namp);
+        if (strcmp(curr->sp_pwdp, "!*") != 0) {
+            printf("%s - %s\n", curr->sp_namp, curr->sp_pwdp);
+        }
         curr = getspent();
     }
 }
