@@ -13,7 +13,7 @@ int main() {
     setspent();
     struct spwd* curr = getspent();
     while (curr != NULL) {
-        if (strcmp(curr->sp_pwdp, "!*") != 0) {
+        if (strlen(curr->sp_pwdp) > 3) {
             printf("%s:%s\n", curr->sp_namp, curr->sp_pwdp);
         }
         curr = getspent();
